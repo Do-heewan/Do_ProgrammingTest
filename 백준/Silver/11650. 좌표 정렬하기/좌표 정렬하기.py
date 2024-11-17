@@ -1,13 +1,13 @@
-# 11650 좌표 정렬하기
+import sys
 
-n = int(input())
+x = int(sys.stdin.readline().rstrip())
 
-li = []
-for i in range(n):
-    [h, w] = input().split()
-    li.append([h, w])
+lst = []
+for i in range(x):
+    [height, weight] = sys.stdin.readline().split()
+    lst.append([height, weight])
 
-li.sort(key = lambda x : (int(x[0]), int(x[1])))
+lst.sort(key = lambda x : (int(x[0]), int(x[1])))
 
-for j in li:
+for j in lst:
     print(j[0], j[1])
