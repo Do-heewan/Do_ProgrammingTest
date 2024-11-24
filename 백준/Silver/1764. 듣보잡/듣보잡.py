@@ -1,15 +1,18 @@
 # 1764 듣보잡
 
-n, m = map(int, (input().split()))
+import sys
+
+n, m = map(int, (sys.stdin.readline().split()))
+# n, m = map(int, (input().split()))
 
 n_list = set()
 m_list = set()
 
 for i in range(n):
-    name1 = input()
+    name1 = sys.stdin.readline().rstrip()
     n_list.add(name1)
 for j in range(m):
-    name2 = input()
+    name2 = sys.stdin.readline().rstrip()
     m_list.add(name2)
 
 sum_list = n_list & m_list
