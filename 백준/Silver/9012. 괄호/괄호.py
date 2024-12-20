@@ -1,22 +1,23 @@
 # 9012 괄호
 
-t = int(input())
+n = int(input())
 
-for i in range(t):
-    command = list(input())
-    sum = 0
 
-    for j in range(len(command)):
-        if command[j] == "(":
-            sum += 1
+for i in range(n):
+    word = list(input())
+    count = 0
+
+    for j in range(len(word)):
+        if (word[j] == ('(')):
+            count += 1
         else:
-            sum -= 1
+            count -= 1
 
-        if sum < 0: # ())일 때
+        if (count < 0):
             print("NO")
             break
 
-    if sum > 0:     # 짝 개수가 맞지 않을 떄
+    if (count > 0):
         print("NO")
-    elif sum == 0:  # 짝 개수가 똑같을 때
+    elif (count == 0):
         print("YES")
