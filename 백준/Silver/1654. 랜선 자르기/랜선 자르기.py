@@ -1,5 +1,8 @@
 # 1654 랜선 자르기
 
+import sys
+
+input = sys.stdin.readline
 N, K = map(int, input().split())
 
 rope = []
