@@ -1,6 +1,9 @@
 # 2667 단지번호붙이기
 
 from collections import deque
+import sys
+
+input = sys.stdin.readline
 
 N = int(input())
 
