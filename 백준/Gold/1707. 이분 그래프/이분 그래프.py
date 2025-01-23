@@ -7,7 +7,8 @@ sys.setrecursionlimit(1000000)
 K = int(input())
 
 def dfs(num, color):
-    visited[num] = color # color라는 임의의 색상 부여 (1 = red)
+    visited[num] = True # color라는 임의의 색상 부여 (1 = red)
+    colors[num] = color
 
     for ix in graph[num]:
         if not (visited[ix]):
@@ -16,7 +17,7 @@ def dfs(num, color):
             if not a: # 탐색 결과가 false면 false 리턴
                 return False
 
-        elif (visited[ix] == visited[num]): # 현재 정점과 다음 정점의 색상이 같은 경우 false 리턴
+        elif (colors[ix] == colors[num]): # 현재 정점과 다음 정점의 색상이 같은 경우 false 리턴
             return False
     
     return True
@@ -26,6 +27,7 @@ for _ in range(K):
 
     graph = [[] for _ in range(V+1)] # 그래프 초기화
     visited = [False] * (V+1) # 방문 표시
+    colors = [0] * (V+1) # 방문 표시
 
     # 그래프 생성
     for _ in range(E):
