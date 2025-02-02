@@ -1,5 +1,8 @@
 # 7568 덩치
 
+import sys
+input = sys.stdin.readline
+
 N = int(input())
 
 li = []
