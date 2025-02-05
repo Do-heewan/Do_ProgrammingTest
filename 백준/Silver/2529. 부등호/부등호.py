@@ -1,5 +1,8 @@
 # 2529 부등호
 
+import sys
+input = sys.stdin.readline
+
 N = int(input())
 op = list(input().split())
 
