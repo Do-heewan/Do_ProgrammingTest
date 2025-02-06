@@ -1,6 +1,7 @@
 # 2615 오목
 
 import sys
+input = sys.stdin.readline
 
 mat = []
 for _ in range(19):
