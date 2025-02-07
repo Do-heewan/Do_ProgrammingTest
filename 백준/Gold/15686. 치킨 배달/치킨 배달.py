@@ -1,5 +1,8 @@
 # 15686 치킨 배달
 
+import sys
+input = sys.stdin.readline
+
 N, M = map(int, input().split())
 
 mat = []
