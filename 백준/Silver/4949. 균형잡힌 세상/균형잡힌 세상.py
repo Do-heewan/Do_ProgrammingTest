@@ -1,26 +1,28 @@
-while True :
-    a = input()
-    stack = []
+# 4949 균형잡힌 세상
 
-    if a == "." :
+while (True):
+    stack = []
+    word = input()
+
+    if (word == "."):
         break
 
-    for i in a :
-        if i == '[' or i == '(' :
-            stack.append(i)
-        elif i == ']' :
-            if len(stack) != 0 and stack[-1] == '[' :
-                stack.pop() # 맞으면 지워서 stack을 비워줌 0 = yes
-            else : 
-                stack.append(']')
-                break
-        elif i == ')' :
-            if len(stack) != 0 and stack[-1] == '(' :
+    for s in word:
+        if (s == "(") or (s == "["):
+            stack.append(s)
+
+        elif (s == ")"):
+            if (stack) and (stack[-1] == "("):
                 stack.pop()
-            else :
-                stack.append(')')
+            else:
+                stack.append(s)
                 break
-    if len(stack) == 0 :
-        print('yes')
-    else :
-        print('no')
+
+        elif (s == "]"):
+            if (stack) and (stack[-1] == "["):
+                stack.pop()
+            else:
+                stack.append(s)
+                break
+
+    print("no" if stack else "yes")
