@@ -5,9 +5,6 @@ N = int(input())
 def cat(N):
     magic_count = 0
     cat_num = 1
-
-    if (cat == 0):
-        return 0
     
     while (N > cat_num):
         cat_num *= 2
