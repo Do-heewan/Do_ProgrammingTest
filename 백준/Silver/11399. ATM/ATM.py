@@ -1,13 +1,16 @@
-# 11399 ATM
+# ATM
 
-n = int(input())
-p_time = list(map(int, (input().split())))
+import sys
+input = sys.stdin.readline
 
-p_time.sort()
+N = int(input())
+time_list = list(map(int, input().split()))
+time_list.sort() # 시간 순으로 정렬
 
 time = 0
-for i in range(len(p_time)):
+# 시간을 순차적으로 더해줌
+for i in range(len(time_list)):
     for j in range(i+1):
-        time += p_time[j]
+        time += time_list[j]
 
 print(time)
