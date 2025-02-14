@@ -1,24 +1,23 @@
+# 19598 최소 회의실 개수
+
 import heapq
 import sys
 input = sys.stdin.readline
 
 N = int(input())
-time_list = [tuple(map(int, input().split())) for _ in range(N)]
 
-# 시작 시간을 기준으로 정렬
-time_list.sort()
+time_list = [list(map(int, input().split())) for _ in range(N)]
+time_list.sort(key = lambda x : x[0]) # 먼저 시작하는 순으로 정렬
 
-heap = []  # 종료 시간을 저장할 최소 힙
-heapq.heappush(heap, time_list[0][1])  # 첫 번째 강의의 종료 시간을 삽입
+heap = []
+heapq.heappush(heap, time_list[0][1]) # 처음 시작하는 강의가 끝나는 시간 삽입
 
 for i in range(1, N):
-    start, end = time_list[i]
+    start, end = time_list[i] # 다음 강의의 시작 시간과 끝 시간
 
-    # 현재 가장 빨리 끝나는 회의의 종료 시간이 다음 회의의 시작 시간보다 작거나 같으면 회의실 재사용 가능
-    if heap[0] <= start:
-        heapq.heappop(heap)  # 사용한 회의실 제거
+    if (heap[0] <= start): # 이전 강의의 끝 시간이 다음 강의의 시작 시간보다 작을 경우
+        heapq.heappop(heap) # 힙에서 제거 => 강의실을 비움
 
-    heapq.heappush(heap, end)  # 새로운 회의의 종료 시간 추가
+    heapq.heappush(heap, end) # 끝나는 시간을 강의실에 추가함으로써 강의실을 늘림
 
-# 최소 필요 회의실 개수는 heap에 남아 있는 종료 시간 개수
 print(len(heap))
