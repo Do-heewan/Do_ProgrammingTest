@@ -1,5 +1,8 @@
 # 10773 제로
 
+import sys
+input = sys.stdin.readline
+
 K = int(input())
 
 stack = []
