@@ -1,5 +1,8 @@
 # 11053 가장 긴 증가하는 부분 수열
 
+import sys
+input = sys.stdin.readline
+
 A = int(input())
 seq = list(map(int, input().split()))
 
