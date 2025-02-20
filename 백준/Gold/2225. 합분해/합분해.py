@@ -1,5 +1,8 @@
 # 2225 합분해
 
+import sys
+input = sys.stdin.readline
+
 N, K = map(int, input().split())
 dp = [[0] * (K+1) for _ in range(N+1)]
 
