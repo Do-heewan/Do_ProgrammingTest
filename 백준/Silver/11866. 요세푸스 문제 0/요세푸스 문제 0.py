@@ -1,6 +1,8 @@
 # 요세푸스 문제 0
 
 from collections import deque
+import sys
+input = sys.stdin.readline
 
 N, K = map(int, input().split())
 
