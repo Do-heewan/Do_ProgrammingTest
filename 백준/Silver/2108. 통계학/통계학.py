@@ -23,13 +23,13 @@ def mid(list):
 # 최빈값
 def freq(list):
     count = Counter(list) # 항목별 개수 카운팅 후 딕셔너리 형태로 저장
-    max_count = max(count.values())
-    result = [k for k, v in count.items() if (v == max_count)]
+    max_count = max(count.values()) # 카운팅 개수의 최댓값
+    result = [k for k, v in count.items() if (v == max_count)] # (원소, 개수)의 형태에서, 개수가 max_count일 때, 해당 원소만 리스트에 저장
 
-    if (len(result) < 2):
+    if (len(result) < 2): # 길이가 2보다 작으면 첫번째 출력
         return result[0]
 
-    return sorted(result)[1]
+    return sorted(result)[1] # 정렬 후, 2번째 원소 출력
 
 # 범위
 def num_range(list):
