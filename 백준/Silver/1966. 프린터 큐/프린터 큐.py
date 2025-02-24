@@ -1,6 +1,8 @@
 # 1966 프린터 큐
 
 from collections import deque
+import sys
+input = sys.stdin.readline
 
 K = int(input())
 
