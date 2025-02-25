@@ -1,5 +1,8 @@
 # 1931 회의실 배정
 
+import sys
+input = sys.stdin.readline
+
 N = int(input())
 
 time_list = []
