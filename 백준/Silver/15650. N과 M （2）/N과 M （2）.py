@@ -1,6 +1,9 @@
 # 15650 N과 M (2)
 
+import sys
 from itertools import combinations
+
+input = sys.stdin.readline
 
 N, M = map(int, input().split())
 
