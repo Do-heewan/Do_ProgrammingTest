@@ -1,5 +1,8 @@
 # 1918 후위표기식
 
+import sys
+input = sys.stdin.readline
+
 exp = input()
 
 stack = [] # 연산자들을 담을 스택
