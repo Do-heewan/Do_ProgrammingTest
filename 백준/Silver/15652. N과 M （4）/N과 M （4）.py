@@ -1,8 +1,5 @@
 # 15652 N과 M (4)
 
-import sys
-input = sys.stdin.readline
-
 N, M = map(int, input().split())
 
 s = []
