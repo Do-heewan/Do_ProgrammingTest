@@ -1,8 +1,5 @@
 # 12865 평범한 배낭
 
-import sys
-input = sys.stdin.readline
-
 N, K = map(int, input().split())
 
 bag = []
