@@ -1,5 +1,8 @@
 # 11047 동전 0
 
+import sys
+input = sys.stdin.readline
+
 N, K = map(int, input().split())
 
 coin = []
