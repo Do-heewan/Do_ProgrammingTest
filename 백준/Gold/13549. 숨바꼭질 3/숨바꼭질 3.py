@@ -1,5 +1,8 @@
 # 13549 숨바꼭질 3
 
+import sys
+input = sys.stdin.readline
+
 from collections import deque
 
 N, K = map(int, input().split()) # N = 현재 위치, K = 찾아가야 할 위치
@@ -21,10 +24,10 @@ def bfs(start, end):
             if (0 <= ix <= MAX) and (visited[ix] == 0):
                 if (ix == 2*c):
                     visited[ix] = visited[c]
-
+                    
                 else:
                     visited[ix] = visited[c] + 1
-
+                
                 Q.append(ix)
 
 print(bfs(N, K))
