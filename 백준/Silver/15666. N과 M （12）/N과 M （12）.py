@@ -1,9 +1,6 @@
 # 15666 N과 M (12)
 
-import sys
 from itertools import combinations
-
-input = sys.stdin.readline
 
 N, M = map(int, input().split())
 seq = list(set(map(int, input().split()))) # set 중복 제거 수열 입력
