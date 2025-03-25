@@ -1,12 +1,15 @@
 # 2178 미로 탐색
 
+import sys
+input = sys.stdin.readline
+
 from collections import deque
 
 N, M = map(int, input().split())
 
 matrix = []
 for _ in range(N):
-    line = input()
+    line = input().rstrip()
     li = []
 
     for ix in line:
