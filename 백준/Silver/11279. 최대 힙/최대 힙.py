@@ -6,16 +6,16 @@ input = sys.stdin.readline
 
 N = int(input())
 
-stack = []
+heap = []
 def search(num):
     if (num == 0):
-        if (len(stack) == 0):
-            heapq.heappush(stack, (0, 0))
-        result = heapq.heappop(stack)[1]
+        if (len(heap) == 0):
+            heapq.heappush(heap, (0, 0))
+        result = heapq.heappop(heap)[1]
         print(result)
 
     else:
-        heapq.heappush(stack, (-num, num))
+        heapq.heappush(heap, (-num, num))
 
 for _ in range(N):
     search(int(input()))
