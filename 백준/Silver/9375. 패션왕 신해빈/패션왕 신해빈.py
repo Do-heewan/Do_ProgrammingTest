@@ -1,5 +1,8 @@
 # 9357 패션왕 신해빈
 
+import sys
+input = sys.stdin.readline
+
 T = int(input())
 
 for _ in range(T):
