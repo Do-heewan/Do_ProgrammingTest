@@ -1,7 +1,6 @@
 import sys
+input = sys.stdin.readlines
 
-count = 0
-for line in sys.stdin:
-    count += 1
+lines = input()
 
-print(count)
+print(len(lines))
