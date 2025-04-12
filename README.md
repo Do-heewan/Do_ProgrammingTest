@@ -4,11 +4,17 @@ Do-Heewan의 코딩테스트 준비를 위한 공간입니다.
 
 이 공간은 코딩 테스트 준비를 위해 생성되었습니다. 백준과 프로그래머스에서 해결한 문제들을 자동으로 커밋할 수 있도록 **Baekjoon Hub**를 설정하였으며, 추가적으로 TIL을 작성하여 꾸준히 알고리즘을 공부하고 있습니다.
 
+<div align = 'center'>
+  <a href="https://solved.ac/profile/tron_god">
+    <img src="http://mazassumnida.wtf/api/generate_badge?boj=tron_god" alt="Solved.ac Profile" />
+  </a>
+</div>
+
 ## 📌 구성
 
 ### 1. 자동 커밋된 문제 풀이
 - **백준 온라인 저지(BOJ)**
-- **프로그래머스(Programmers)**
+- **프로그래머스(Programmers)** 
 - 문제 풀이 과정 및 결과가 자동으로 업데이트됩니다.
 
 ### 2. TIL 작성
