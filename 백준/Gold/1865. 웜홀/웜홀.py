@@ -9,7 +9,7 @@ def bellman_ford(start):
     # 전체 노드 반복
     for i in range(N):
         # 매 반복마다 모든 간선 확인
-        for j in range(len(edge)):
+        for j in range(2*M+W):
             curr_node = edge[j][0]
             next_node = edge[j][1]
             edge_cost = edge[j][2]
