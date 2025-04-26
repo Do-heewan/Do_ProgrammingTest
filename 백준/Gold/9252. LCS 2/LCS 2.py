@@ -1,7 +1,10 @@
 # 9252 LCS 2
 
-first = [''] + list(input())
-second = [''] + list(input())
+import sys
+input = sys.stdin.readline
+
+first = [''] + list(input().rstrip())
+second = [''] + list(input().rstrip())
 
 dp = [['' for _ in range(len(second))] for _ in range(len(first))]
 
