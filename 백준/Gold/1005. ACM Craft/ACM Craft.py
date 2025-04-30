@@ -1,22 +1,34 @@
-def get_cost(b):
-    if dp[b] is not None:
-        return dp[b]
-    mx = 0
-    for i in range(num_buildings):
-        if need[i][b]:
-            mx = max(mx, get_cost(i))
-    dp[b] = mx + cost[b]
-    return dp[b]
+# 1005 ACM Craft
 
-num_tests = int(input())
-for _ in range(num_tests):
-    num_buildings, num_rules = map(int, input().split())
-    cost = list(map(int, input().split()))
-    need = [ [False] * num_buildings for _ in range(num_buildings) ]
-    dp = [None] * num_buildings
-    # need[x][y]: must build x to build y
-    for _ in range(num_rules):
-        x, y = map(int, input().split())
-        need[x-1][y-1] = True
-    target_building = int(input()) - 1
-    print(get_cost(target_building))
+import sys
+input = sys.stdin.readline
+
+T = int(input())
+
+def get_cost(num):
+    if (dp[num]) is not None:
+        return dp[num]
+    
+    mx = 0
+    for i in range(1, u+1):
+        if (graph[i][num]):
+            mx = max(mx, get_cost(i))
+
+    dp[num] = mx + cost[num]
+
+    return dp[num]
+
+for _ in range(T):
+    u, v = map(int, input().split())
+    cost = [0] + list(map(int, input().split()))
+    
+    graph = [[False for _ in range(u+1)] for _ in range(u+1)]
+    dp = [None for _ in range(u+1)]
+
+    for _ in range(v):
+        a, b = map(int, input().split())
+        graph[a][b] = True
+    
+    target = int(input())
+
+    print(get_cost(target))
