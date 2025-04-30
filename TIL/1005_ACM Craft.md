@@ -2,6 +2,9 @@
 
 [문제 링크](https://www.acmicpc.net/problem/1005) 
 
+![ACM Craft](https://github.com/user-attachments/assets/280983b3-d316-4412-adb7-48479ed41269)
+
+
 ## 🗝️알고리즘 분류
 - 그래프 이론
 - 다이나믹 프로그래밍
