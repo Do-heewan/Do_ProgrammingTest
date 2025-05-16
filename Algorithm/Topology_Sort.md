@@ -1,7 +1,7 @@
 # 위상 정렬(Topology Sort)
 
 ### 위상 정렬이란?
-![위상정렬](https://github.com/user-attachments/assets/c8379e21-09e1-4822-8912-e28ae726a976)
+![Image](https://github.com/user-attachments/assets/7f814cef-a76d-44f0-92ec-93e6026fe118)
 
 - 정렬 알고리즘의 하나로, **순서가 정해져 있는 작업을 차례로 수행**해야할 때 사용할 수 있는 알고리즘이다.
 - 방향이 있는 그래프의 노드들을 간선의 방향을 거스르지 않도록 나열하는 것
