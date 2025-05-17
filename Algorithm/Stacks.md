@@ -1,4 +1,6 @@
-# 스택(Stacks)
+# 스택 (Stacks)
+
+![Image](https://github.com/user-attachments/assets/57b3bfd3-849c-421b-abef-a8ffd6e7c117)
 
 ### 스택(Stacks)이란?
 
@@ -8,13 +10,13 @@
 
 <br>
 
-### 스택의 동작 예시
+## 스택의 동작 예시
 
 ![스택](https://github.com/user-attachments/assets/7b79fa1b-196b-4638-a21b-3a7b439f05a7)
 
 <br>
 
-### 스택의 구현
+## 스택의 구현
 
 파이썬에서 스택은 리스트를 이용하여 구현할 수 있다.
 
