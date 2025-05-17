@@ -1,5 +1,8 @@
 # 30804 과일 탕후루
 
+import sys
+input = sys.stdin.readline
+
 N = int(input())
 fruit = list(map(int, input().split()))
 
