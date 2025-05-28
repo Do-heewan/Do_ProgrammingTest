@@ -1,6 +1,7 @@
-# 10026 적록색약
+# 10026 적록색약 (DFS)
 
-from collections import deque
+import sys
+sys.setrecursionlimit(100000)
 
 N = int(input())
 
@@ -15,21 +16,15 @@ for _ in range(N):
         graph_2.append(ix)
     graph.append(graph_2)
 
-def bfs(x, y):
-    Q = deque()
-    Q.append([x, y])
+def dfs(x, y):
     visited[x][y] = True
 
-    while Q:
-        cx, cy = Q.popleft()
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
 
-        for i in range(4):
-            nx = cx + dx[i]
-            ny = cy + dy[i]
-
-            if (0 <= nx < N) and (0 <= ny < N) and (graph[nx][ny] == graph[x][y]) and not visited[nx][ny]:
-                Q.append([nx, ny])
-                visited[nx][ny] = True
+        if (0 <= nx < N) and (0 <= ny < N) and (graph[x][y] == graph[nx][ny]) and not visited[nx][ny]:
+            dfs(nx, ny)
 
 # 정상인
 non_blind = 0
@@ -37,7 +32,7 @@ visited = [[False for _ in range(N)] for _ in range(N)]
 for i in range(N):
     for j in range(N):
         if not visited[i][j]:
-            bfs(i, j)
+            dfs(i, j)
             non_blind += 1
 
 # 적록색약
@@ -51,7 +46,7 @@ visited = [[False for _ in range(N)] for _ in range(N)]
 for i in range(N):
     for j in range(N):
         if not visited[i][j]:
-            bfs(i, j)
+            dfs(i, j)
             blind += 1
 
 print(non_blind, blind)
