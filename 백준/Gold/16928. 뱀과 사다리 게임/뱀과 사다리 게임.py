@@ -1,6 +1,8 @@
 # 16928 뱀과 사다리 게임
 
+import sys
 from collections import deque
+input = sys.stdin.readline
 
 N, M = map(int, input().split())
 
