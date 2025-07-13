@@ -1,13 +1,6 @@
 # 17070 파이프 옮기기
 
-from collections import deque
-
 N = int(input())
-
-# 세로, 대각, 가로
-dx = [1, 1, 0]
-dy = [0, 1, 1]
-status = ["V", "D", "H"]
 
 graph = []
 for _ in range(N):
