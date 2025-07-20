@@ -1,9 +1,11 @@
+# 2448 별 찍기 - 11
+
 import sys
 input = sys.stdin.readline
 
-n = int(input())
+N = int(input())
 
-stars = [[' ']*2*n for _ in range(n)]
+stars = [[' '] * 2 * N for _ in range(N)]
 
 def recursion(i, j, size):
     if size == 3:
@@ -18,6 +20,7 @@ def recursion(i, j, size):
         recursion(i + newSize, j - newSize, newSize)
         recursion(i + newSize, j + newSize, newSize)
 
-recursion(0, n - 1, n)
+recursion(0, N-1, N)
+
 for star in stars:
     print("".join(star))
