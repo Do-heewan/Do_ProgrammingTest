@@ -7,5 +7,4 @@ class Solution(object):
                     result.append(i)
                     result.append(j)
                     
-
         return result 
