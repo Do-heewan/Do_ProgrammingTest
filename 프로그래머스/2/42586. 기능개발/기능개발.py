@@ -29,3 +29,21 @@ def solution(progresses, speeds):
     answer.append(count)
             
     return answer
+
+#     answer = []
+#     Q = deque(progresses)
+    
+#     while Q:
+#         day = 0
+        
+#         while Q and Q[0] >= 100:
+#             Q.popleft()
+#             speeds.pop(0)
+#             day += 1
+            
+#         Q = deque(Q[i] + speeds[i] for i in range(len(Q)))
+        
+#         if day > 0:
+#             answer.append(day)
+        
+#     return answer
