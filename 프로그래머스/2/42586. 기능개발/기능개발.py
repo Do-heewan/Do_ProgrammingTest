@@ -2,33 +2,49 @@ from collections import deque
 
 def solution(progresses, speeds):
     
-    l = len(progresses)
+    Q_p = deque(progresses)
+    Q_s = deque(speeds)
     
-    days = []
-    for i in range(l):
-        day = 0
-        
-        while progresses[i] < 100:
-            progresses[i] += speeds[i]
-            day += 1
-    
-        days.append(day)
-    
-    target = days[0]
     answer = []
-    count = 1
-
-    for d in days[1:]:
-        if d <= target:
-            count += 1
-        else:
-            answer.append(count)
-            count = 1
-            target = d
-
-    answer.append(count)
+    
+    while Q_p:
+        cnt = 0
+        
+        for i in range(len(Q_p)):
+            Q_p[i] += Q_s[i]
+            
+        while Q_p and Q_p[0] >= 100:
+            Q_p.popleft()
+            Q_s.popleft()
+            cnt += 1
+            
+        if cnt > 0:
+            answer.append(cnt)
             
     return answer
+            
+    
+    
+#     answer = []
+    
+#     while progresses:
+#         cnt = 0
+        
+#         for i in range(len(progresses)):
+#             progresses[i] += speeds[i]
+            
+#         while progresses and progresses[0] >= 100:
+#             progresses.pop(0)
+#             speeds.pop(0)
+#             cnt += 1
+        
+#         if cnt > 0: answer.append(cnt)
+
+#     return answer
+    
+    
+    
+
 
 #     answer = []
 #     Q = deque(progresses)
@@ -47,3 +63,4 @@ def solution(progresses, speeds):
 #             answer.append(day)
         
 #     return answer
+
