@@ -21,7 +21,8 @@ while Q:
         curr = now + move[i]
 
         if 1 <= curr <= F and not visited[curr]:
-            graph[curr] = min(graph[curr], graph[now]+1)
+            # graph[curr] = min(graph[curr], graph[now]+1)
+            graph[curr] = graph[now] + 1
             visited[curr] = True
             Q.append(curr)
 
