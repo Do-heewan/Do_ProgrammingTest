@@ -44,4 +44,3 @@ def dijkstra(num):
                 weight[v] = cost # 더 작은 가중치로 변경
                 heapq.heappush(queue, (cost, v)) # 힙에 푸쉬
 ```
-
