@@ -1,7 +1,7 @@
 # 17175 피보나치는 지겨웡~
 
 import sys
-# input = sys.stdin.readline
+input = sys.stdin.readline
 
 dp = [0] * (51)
 dp[0] = 1
