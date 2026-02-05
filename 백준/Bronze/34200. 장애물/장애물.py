@@ -7,7 +7,8 @@ INF = 1_000_000
 N = int(input())
 wall = list(map(int, input().split()))
 
-way = [INF for _ in range(max(wall)+2)]
+max_height = max(wall)
+way = [INF for _ in range(max_height+2)]
 for w in wall:
     way[w] = -1
 
@@ -18,8 +19,11 @@ while Q:
     c = Q.popleft()
 
     for i in [c+1, c+2]:
-        if i <= max(wall)+1 and way[i] != -1:
+        if i >= len(way):
+            continue
+
+        if i <= max(wall)+1 and way[i] != -1 and way[i] == INF:
             way[i] = min(way[c] + 1, way[i])
             Q.append(i)
 
-print(way[-1] if way[-1] != INF else -1)
+print(way[max_height+1] if way[max_height+1] != INF else -1)
