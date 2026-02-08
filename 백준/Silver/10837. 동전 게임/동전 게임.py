@@ -1,5 +1,8 @@
 # 10837 동전 게임
 
+import sys
+input = sys.stdin.readline
+
 K = int(input())
 C = int(input())
 
