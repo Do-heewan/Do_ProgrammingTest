@@ -41,10 +41,10 @@ n(16) = 4 x 4 : min(A, B) = 4
 1 ~ N 까지의 소수를 판별한다고 할 때, 다음과 같은 과정으로 동작한다.
 
 - `is_prime[0 ~ N+1]` 까지 **True**로 초기화
-- 1은 소수가 아니므로 False 처리
+- 1은 소수가 아니므로 **False** 처리
 - 2 ~ $\sqrt N$ 반복
   - `is_prime[i]`가 소수면 **True**
-  - `i`의 배수들을 모두 **False**로 바꿈
+  - $i$의 배수들을 모두 **False**로 바꿈 (이때 시작 값은 $i$의 제곱)
 
 ### 에라토스테네스의 체 알고리즘
 
@@ -66,7 +66,7 @@ def eratosthenes():
         if not is_prime:
             continue
 
-        for j in range(2*i, N+1, i):
+        for j in range(i*i, N+1, i):
             is_prime[j] = False
 
     primes = set(i for i in range(2, N+1) if is_prime[i])
