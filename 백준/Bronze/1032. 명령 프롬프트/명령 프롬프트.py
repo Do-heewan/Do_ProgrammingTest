@@ -13,7 +13,5 @@ for _ in range(N):
     for i in range(len(curr)):
         if curr[i] != word[i]:
             curr[i] = "?"
-        
 
-for c in curr:
-    print(c, end='')
+print(*curr, sep="")
