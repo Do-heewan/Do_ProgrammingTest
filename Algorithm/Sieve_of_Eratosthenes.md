@@ -63,7 +63,7 @@ def eratosthenes():
     is_prime[1] = False
 
     for i in range(2, int(math.sqrt(N))+1):
-        if not is_prime:
+        if not is_prime[i]:
             continue
 
         for j in range(i*i, N+1, i):
