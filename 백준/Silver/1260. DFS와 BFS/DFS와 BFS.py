@@ -1,31 +1,28 @@
 # 1260 DFS와 BFS
 
 from collections import deque
-import sys
-
-input = sys.stdin.readline
 
 def bfs(n):
-    b_visited[n] = True
     Q = deque()
     Q.append(n)
+    visited[n] = True
     print(n, end=' ')
 
     while Q:
         c = Q.popleft()
 
         for ix in graph[c]:
-            if not b_visited[ix]:
-                Q.append(ix)
-                b_visited[ix] = True
+            if not visited[ix]:
                 print(ix, end=' ')
+                Q.append(ix)
+                visited[ix] = True
 
 def dfs(n):
-    d_visited[n] = True
+    visited[n] = True
     print(n, end=' ')
 
     for ix in graph[n]:
-        if not d_visited[ix]:
+        if not visited[ix]:
             dfs(ix)
 
 N, M, V = map(int, input().split())
@@ -36,12 +33,13 @@ for _ in range(M):
     graph[a].append(b)
     graph[b].append(a)
 
-for i in range(len(graph)):
-    graph[i].sort()
+for g in graph:
+    g.sort()
 
-b_visited = [False] * (N+1)
-d_visited = [False] * (N+1)
-
+visited = [False] * (N+1)
 dfs(V)
+
 print()
+
+visited = [False] * (N+1)
 bfs(V)
