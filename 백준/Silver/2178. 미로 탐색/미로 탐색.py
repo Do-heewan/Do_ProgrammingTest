@@ -1,25 +1,7 @@
 # 2178 미로 탐색
 
-import sys
-input = sys.stdin.readline
-
 from collections import deque
 
-N, M = map(int, input().split())
-
-matrix = []
-for _ in range(N):
-    line = input().rstrip()
-    li = []
-
-    for ix in line:
-        li.append(int(ix))
-
-    matrix.append(li)
-
-visited = [[0 for _ in range(M)] for _ in range(N)]
-
-# 상, 하, 좌, 우
 dx = [0, 0, -1, 1]
 dy = [1, -1, 0, 0]
 
@@ -35,10 +17,19 @@ def bfs(x, y):
             nx = cx + dx[i]
             ny = cy + dy[i]
 
-            if (0 <= nx < N) and (0 <= ny < M) and (visited[nx][ny] == 0) and (matrix[nx][ny] == 1):
-                visited[nx][ny] = visited[cx][cy] + 1
-                Q.append([nx, ny])
+            if 0 <= nx < N and 0 <= ny < M and visited[nx][ny] == -1:
+                if graph[nx][ny] == "1":
+                    Q.append([nx, ny])
+                    visited[nx][ny] = visited[cx][cy]+1
 
-    return visited[N-1][M-1]
+N, M = map(int, input().split())
 
-print(bfs(0, 0))
+graph = []
+for _ in range(N):
+    graph.append(list(input()))
+
+visited = [[-1] * M for _ in range(N)]
+
+bfs(0, 0)
+
+print(visited[N-1][M-1])
