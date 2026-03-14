@@ -1,19 +1,23 @@
+# 1697 숨바꼭질
+
 from collections import deque
 
-n, k = map(int, input().split())
+N, K = map(int, input().split())
 
-MAX = 10 ** 5
-visited = [0] * (MAX + 1)
-def bfs(s):
-    q = deque()
-    q.append(s)
+space = [-1] * (100001)
 
-    while q:
-        cur = q.popleft()
-        if cur == k:
-            return visited[k]
-        for i in (cur+1, cur-1, cur * 2):
-            if 0 <= i <= MAX and not visited[i]: 
-              visited[i] = visited[cur] + 1
-              q.append(i)
-print(bfs(n))
+Q = deque()
+Q.append(N)
+space[N] = 0
+
+while Q:
+    curr = Q.popleft()
+
+    if curr == K:
+        print(space[K])
+        break
+
+    for next in [curr-1, curr+1, 2*curr]:
+        if 0 <= next < 100001 and space[next] == -1:
+            space[next] = space[curr]+1
+            Q.append(next)
