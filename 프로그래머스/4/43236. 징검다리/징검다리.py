@@ -1,9 +1,7 @@
 from itertools import combinations
 
-[0, 2, 11, 14, 17, 21, 25]
-[2, 9, 3, 3, 4, 4]
-
 def solution(distance, rocks, n):
+    answer = 0
     rocks.append(distance)
     rocks.sort()
     
@@ -11,9 +9,9 @@ def solution(distance, rocks, n):
     right = distance
     
     while left <= right:
-        mid = (left + right) // 2
-        remove_cnt = 0
-        curr = 0
+        mid = (left + right) // 2 # 가능한 최솟값
+        remove_cnt = 0 # 제거한 돌의 수
+        curr = 0 # 현재 위치
         
         for r in rocks:
             if r - curr < mid:
