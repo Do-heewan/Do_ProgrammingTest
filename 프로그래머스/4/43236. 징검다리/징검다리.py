@@ -6,7 +6,8 @@ def solution(distance, rocks, n):
     rocks.sort()
     
     left = 1
-    right = distance
+    # right = distance
+    right = max(rocks[i]-rocks[i-1] for i in range(1, len(rocks)))
     
     while left <= right:
         mid = (left + right) // 2 # 가능한 최솟값
