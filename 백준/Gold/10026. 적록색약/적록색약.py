@@ -1,52 +1,73 @@
-# 10026 적록색약 (DFS)
+# 10026 적록색약
 
-import sys
-sys.setrecursionlimit(100000)
-
-N = int(input())
+from collections import deque
 
 dx = [0, 0, -1, 1]
 dy = [1, -1, 0, 0]
 
-graph = []
-for _ in range(N):
-    word = input()
-    graph_2 = []
-    for ix in word:
-        graph_2.append(ix)
-    graph.append(graph_2)
+def bfs(x, y, color):
 
-def dfs(x, y):
+    Q = deque()
+    Q.append([x, y])
     visited[x][y] = True
 
-    for i in range(4):
-        nx = x + dx[i]
-        ny = y + dy[i]
+    while Q:
+        cx, cy = Q.popleft()
 
-        if (0 <= nx < N) and (0 <= ny < N) and (graph[x][y] == graph[nx][ny]) and not visited[nx][ny]:
-            dfs(nx, ny)
+        for i in range(4):
+            nx = cx + dx[i]
+            ny = cy + dy[i]
 
-# 정상인
-non_blind = 0
-visited = [[False for _ in range(N)] for _ in range(N)]
-for i in range(N):
-    for j in range(N):
-        if not visited[i][j]:
-            dfs(i, j)
-            non_blind += 1
+            if 0 <= nx < N and 0 <= ny < N and not visited[nx][ny]:
+                if graph[nx][ny] == color:
+                    Q.append([nx, ny])
+                    visited[nx][ny] = True
+        
+    return 1
 
-# 적록색약
-for i in range(N):
-    for j in range(N):
-        if (graph[i][j] == "G"):
-            graph[i][j] = "R"
+def isDeficiency(x, y, color):
 
-blind = 0
-visited = [[False for _ in range(N)] for _ in range(N)]
-for i in range(N):
-    for j in range(N):
-        if not visited[i][j]:
-            dfs(i, j)
-            blind += 1
+    Q = deque()
+    Q.append([x, y])
+    visited[x][y] = True
 
-print(non_blind, blind)
+    while Q:
+        cx, cy = Q.popleft()
+
+        for i in range(4):
+            nx = cx + dx[i]
+            ny = cy + dy[i]
+
+            if 0 <= nx < N and 0 <= ny < N and not visited[nx][ny]:
+                if (color == "R" or color == "G") and (graph[nx][ny] == "R" or graph[nx][ny] == "G"):
+                    Q.append([nx, ny])
+                    visited[nx][ny] = True
+                elif graph[nx][ny] == color:
+                    Q.append([nx, ny])
+                    visited[nx][ny] = True
+        
+    return 1
+
+N = int(input())
+
+graph = []
+for _ in range(N):
+    graph.append(list(input()))
+
+visited = [[False] * N for _ in range(N)]
+
+normal = 0
+for x in range(N):
+    for y in range(N):
+        if not visited[x][y]:
+            normal += bfs(x, y, graph[x][y])
+
+visited = [[False] * N for _ in range(N)]
+
+deficiency  = 0
+for x in range(N):
+    for y in range(N):
+        if not visited[x][y]:
+            deficiency += isDeficiency(x, y, graph[x][y])
+
+print(normal, deficiency)
