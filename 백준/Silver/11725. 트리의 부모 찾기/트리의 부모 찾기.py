@@ -1,9 +1,23 @@
 # 11725 트리의 부모 찾기
 
 import sys
-
 input = sys.stdin.readline
-sys.setrecursionlimit(1000000)
+
+from collections import deque
+
+def bfs():
+    Q = deque()
+    Q.append(1)
+    visited[1] = True
+
+    while Q:
+        curr = Q.popleft()
+
+        for ix in graph[curr]:
+            if not visited[ix]:
+                Q.append(ix)
+                visited[ix] = True
+                res[ix] = curr
 
 N = int(input())
 
@@ -14,18 +28,10 @@ for _ in range(N-1):
     graph[b].append(a)
 
 visited = [False] * (N+1)
-result = [[] for _ in range(N+1)]
 
-def dfs(num):
-    visited[num] = True
+res = {0:0, 1:0}
 
-    for ix in graph[num]:
-        if not (result[ix]):
-            result[ix].append(num)
+bfs()
 
-        if not visited[ix]:
-            dfs(ix)
-
-dfs(1)
-for i in range(2, len(result)):
-    print(*result[i])
+for i in list(sorted(res))[2:]:
+    print(res[i])
