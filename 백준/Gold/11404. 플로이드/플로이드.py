@@ -1,29 +1,28 @@
-import sys
-INF = int(1e9)
+# 11404 플로이드
 
-n = int(sys.stdin.readline())  # 도시의 수
-m = int(sys.stdin.readline())  # 버스의 수
+INF = 1_000_000_000
 
-graph = [[INF] * (n + 1) for _ in range(n + 1)]    # 모든 최단 거리를 저장
-for i in range(1, n + 1):
-    for j in range(1, n + 1):
-        if i == j:
-            graph[i][j] = 0
+N = int(input())
+M = int(input())
 
-for _ in range(m):
-    a, b, c = map(int, sys.stdin.readline().split())
-    graph[a][b] = min(c, graph[a][b])   # 노선이 하나가 아닐 수 있음 > 최소값 넣기 
+dist = [[INF] * (N+1) for _ in range(N+1)]
+for _ in range(M):
+    a, b, cost = map(int, input().split())
+    dist[a][b] = min(dist[a][b], cost)
 
-# 2. 다이나믹 프로그래밍
-for k in range(1, n + 1):
-    for a in range(1, n + 1):
-        for b in range(1, n + 1):
-            graph[a][b] = min(graph[a][b], graph[a][k] + graph[k][b])
+for i in range(1, N+1):
+    dist[i][i] = 0
 
-for a in range(1, n + 1):
-    for b in range(1, n + 1):
-        if graph[a][b] == INF:
-            print("0",  end=" ")
-        else:
-            print(graph[a][b], end=" ")
+for k in range(1, N+1):
+    for i in range(1, N+1):
+        for j in range(1, N+1):
+            if dist[i][k] != INF and dist[k][j] != INF:
+                dist[i][j] = min(dist[i][j], dist[i][k]+dist[k][j])
+
+for d in dist[1:]:
+    for i in d[1:]:
+        if i == INF:
+            print(0, end=' ')
+            continue
+        print(i, end=' ')
     print()
