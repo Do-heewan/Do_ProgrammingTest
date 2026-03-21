@@ -3,33 +3,31 @@
 dx = [0, 0, -1, 1]
 dy = [1, -1, 0, 0]
 
-def dfs(r, c, count):
-    global max_count
+def dfs(x, y, visited):
+    global answer
+    answer = max(answer, len(visited))
 
-    max_count = max(count, max_count)
-    
+    if answer == 26:
+        return
+
     for i in range(4):
-        nr = r + dx[i]
-        nc = c + dy[i]
+        nx = x + dx[i]
+        ny = y + dy[i]
 
-        if (0 <= nr < R) and (0 <= nc < C):
-            idx = ord(graph[nr][nc]) - ord('A')
-            if not visited[idx]:
-                visited[idx] = True
-                dfs(nr, nc, count + 1)
-                visited[idx] = False
+        if 0 <= nx < R and 0 <= ny < C:
+            next_ = graph[nx][ny]
+            if next_ not in visited:
+                visited.add(next_)
+                dfs(nx, ny, visited)
+                visited.remove(next_)
 
 R, C = map(int, input().split())
 
 graph = []
 for _ in range(R):
-    graph.append([ix for ix in input()])
+    graph.append(list(input()))
 
-max_count = 0
-visited = [False] * 26
+answer = 0
+dfs(0, 0, set(graph[0][0]))
 
-start = ord(graph[0][0]) - ord('A')
-visited[start] = True
-dfs(0, 0, 1)
-
-print(max_count)
+print(answer)
