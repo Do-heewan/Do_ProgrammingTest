@@ -1,25 +1,17 @@
 # 12865 평범한 배낭
 
-import sys
-input = sys.stdin.readline
-
 N, K = map(int, input().split())
 
-bag = []
+items = []
 for _ in range(N):
-    W, V = map(int, input().split())
-    bag.append([W, V])
+    w, v = map(int, input().split())
+    items.append([w, v])
 
-knapsack = [[0] * (K+1) for _ in range(N+1)]
+items.sort()
 
-for i in range(1, N+1):
-    for j in range(1, K+1):
-        weight = bag[i-1][0]
-        value = bag[i-1][1]
+knapsack = [0] * (K+1)
+for w, v in items:
+    for i in range(K, w-1, -1):
+        knapsack[i] = max(knapsack[i], knapsack[i-w] + v)
 
-        if j < weight:
-            knapsack[i][j] = knapsack[i - 1][j] #weight보다 작으면 위의 값을 그대로 가져온다
-        else:
-            knapsack[i][j] = max(value + knapsack[i - 1][j - weight], knapsack[i - 1][j])
-
-print(knapsack[N][K])
+print(max(knapsack))
