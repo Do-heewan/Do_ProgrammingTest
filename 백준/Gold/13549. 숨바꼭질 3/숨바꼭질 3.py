@@ -1,33 +1,30 @@
 # 13549 숨바꼭질 3
 
-import sys
-input = sys.stdin.readline
-
 from collections import deque
 
-N, K = map(int, input().split()) # N = 현재 위치, K = 찾아가야 할 위치
-
-MAX = 100_000
-visited = [0 for _ in range(MAX+1)]
-
-def bfs(start, end):
+def bfs(n):
     Q = deque()
-    Q.append(start)
+    Q.append(n)
+    visited[n] = 0
 
     while Q:
         c = Q.popleft()
 
-        if (c == end):
-            return visited[c]
+        if c == K: return
         
-        for ix in [2*c, c-1, c+1]:
-            if (0 <= ix <= MAX) and (visited[ix] == 0):
-                if (ix == 2*c):
-                    visited[ix] = visited[c]
-                    
-                else:
-                    visited[ix] = visited[c] + 1
-                
-                Q.append(ix)
+        nc = 2*c
+        if 0 <= nc <= 100000 and visited[nc] == -1:
+            Q.append(nc)
+            visited[nc] = visited[c]
 
-print(bfs(N, K))
+        for ix in [c-1, c+1]:
+            if 0 <= ix <= 100000 and visited[ix] == -1:
+                Q.append(ix)
+                visited[ix] = visited[c]+1
+
+N, K = map(int, input().split())
+visited = [-1] * (100000+1)
+
+bfs(N)
+
+print(visited[K])
