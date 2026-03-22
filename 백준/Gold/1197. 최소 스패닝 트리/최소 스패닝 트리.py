@@ -1,35 +1,37 @@
-# 1197 최소 스패닝 트리 (Kruskal)
+# 1197 최소 스패닝 트리 (Prim)
 
 import sys
 input = sys.stdin.readline
 
-sys.setrecursionlimit(10 ** 8)
+import heapq
 
-def find_root(x):
-    if x != parent[x]:
-        parent[x] = find_root(parent[x])
-    return parent[x]
-
-def union(a, b):
-    x = find_root(a)
-    y = find_root(b)
-    if x > y: parent[x] = y
-    else: parent[y] = x
-
-def same_root(x, y):
-    return find_root(x) == find_root(y)
+INF = 100_000_000
 
 V, E = map(int, input().split())
-graph = [list(map(int, input().split())) for _ in range(E)]
 
-graph.sort(key=lambda x : x[2])
+graph = [[] for _ in range(V+1)]
+for _ in range(E):
+    a, b, cost = map(int, input().split())
+    graph[a].append([b, cost])
+    graph[b].append([a, cost])
 
-parent = [i for i in range(V+1)]
+visited = set()
 
-cost = 0
-for a, b, c in graph:
-    if not same_root(a, b):
-        union(a, b)
-        cost += c
+heap = []
+heapq.heappush(heap, [0, 1])
 
-print(cost)
+answer = 0
+while heap:
+    wgt, curr = heapq.heappop(heap)
+
+    if curr in visited:
+        continue
+
+    visited.add(curr)
+    answer += wgt
+
+    for next_, c in graph[curr]:
+        if next_ not in visited:
+            heapq.heappush(heap, [c, next_])
+
+print(answer)
