@@ -7,8 +7,6 @@ for _ in range(N):
     w, v = map(int, input().split())
     items.append([w, v])
 
-items.sort()
-
 knapsack = [0] * (K+1)
 for w, v in items:
     for i in range(K, w-1, -1):
