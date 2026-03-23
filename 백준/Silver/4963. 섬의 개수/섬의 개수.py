@@ -23,9 +23,7 @@ def bfs(x, y):
                 if graph[nx][ny] == 1:
                     Q.append([nx, ny])
                     visited[nx][ny] = True
-
     return 1
-
 
 while True:
     N, M = map(int, input().split())
