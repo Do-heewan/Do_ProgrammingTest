@@ -7,8 +7,8 @@ B = list(map(int, input().split()))
 A.sort()
 B.sort(reverse=True)
 
-sum = 0
+ans = 0
 for i in range(N):
-    sum += A[i] * B[i]
+    ans += A[i] * B[i]
 
-print(sum)
+print(ans)
