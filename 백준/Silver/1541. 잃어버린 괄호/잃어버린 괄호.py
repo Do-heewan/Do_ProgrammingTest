@@ -1,21 +1,20 @@
 # 1541 잃어버린 괄호
 
-seq = input().split("-") # -를 기준으로 split
+calc = input().split("-")
 
-num = []
+nums = []
+for ix in calc:
+    num = 0
+    tmp = ix.split("+")
 
-for ix in seq:
-    sum = 0
-    tmp = ix.split("+") # -로 나눈 애들 중, +로 다시 나눔
-
-    for i in tmp: # 나눠진 애들은 모두 숫자
-        sum += int(i) # 합해준다.
+    for t in tmp:
+        num += int(t)
     
-    num.append(sum) # 더한 값을 리스트에 저장
+    nums.append(num)
 
-n = num[0] # num 리스트에는 모두 정수. 따라서 첫 번째 값에서 다른 값들을 빼준다.
+n = nums[0]
 
-for i in range(1, len(num)):
-    n -= num[i]
+for i in range(1, len(nums)):
+    n -= nums[i]
 
 print(n)
