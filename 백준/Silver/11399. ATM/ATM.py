@@ -1,14 +1,11 @@
 # 11399 ATM
 
 N = int(input())
-time = list(map(int, input().split()))
-time.sort()
+times = list(map(int, input().split()))
+times.sort()
 
-curr = 0
-total = 0
+prefix_sum = [0]
+for i in range(N):
+    prefix_sum.append(times[i]+prefix_sum[i])
 
-for t in time:
-    curr += t
-    total += curr
-
-print(total)
+print(sum(prefix_sum))
