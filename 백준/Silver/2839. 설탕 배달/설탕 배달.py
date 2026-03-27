@@ -3,18 +3,15 @@
 import sys
 input = sys.stdin.readline
 
+INF = 5000
+
 N = int(input())
 
-count = 0
+dp = [INF] * (5000+1)
+dp[3] = 1
+dp[5] = 1
 
-while (N >= 0):
-    if (N % 5 == 0):
-        count += int(N // 5)
-        print(count)
-        break
+for i in range(1, N+1):
+    dp[i] = min(dp[i], dp[i-5]+1, dp[i-3]+1)
 
-    N -= 3
-    count += 1
-
-else:
-    print(-1)
+print(dp[N] if dp[N] != INF else -1)
