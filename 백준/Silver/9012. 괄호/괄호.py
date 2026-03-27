@@ -1,23 +1,19 @@
 # 9012 괄호
 
-n = int(input())
+T = int(input())
 
+for _ in range(T):
+    word = input()
 
-for i in range(n):
-    word = list(input())
-    count = 0
+    stack = []
 
-    for j in range(len(word)):
-        if (word[j] == ('(')):
-            count += 1
-        else:
-            count -= 1
+    for w in word:
+        if w == "(":
+            stack.append(w)
+        elif w == ")":
+            if stack and stack[-1] == "(":
+                stack.pop()
+            else:
+                stack.append(w)
 
-        if (count < 0):
-            print("NO")
-            break
-
-    if (count > 0):
-        print("NO")
-    elif (count == 0):
-        print("YES")
+    print("NO" if stack else "YES")
