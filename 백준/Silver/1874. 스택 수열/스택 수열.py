@@ -1,33 +1,31 @@
 # 1874 스택 수열
 
 import sys
-
 input = sys.stdin.readline
+
 N = int(input())
+seq = list(int(input()) for _ in range(N))
 
-stack = [] # 스택
-operate = [] # push(+), pop(-) 여부 저장
-count = 1 # 1 ~ N까지 수열 저장
-boolean = True # 수열 출력 가능 여부 판단
+nums = [i for i in range(1, N+1)]
+result = []
 
-for _ in range(N):
-    num = int(input())
+stack = []
+idx = 0
 
-    while (count <= num): # 1부터 num까지 스택에 push
-        stack.append(count)
-        operate.append("+")
+result = []
+for i in range(1, N+1):
+    stack.append(i)
+    result.append("+")
 
-        count += 1
-
-    if (stack[-1] == num): # 스택의 top이 num과 같다면 pop
+    while idx < N and stack[-1] == seq[idx]:
         stack.pop()
-        operate.append("-")
+        idx += 1
+        result.append("-")
+        if not stack:
+            break
 
-    else: # 같지 않다면 이 수열은 만들 수 없음
-        boolean = False
-
-if (boolean):
-    for ix in operate:
-        print(ix)
-else:
+if stack:
     print("NO")
+else:
+    for r in result:
+        print(r)
