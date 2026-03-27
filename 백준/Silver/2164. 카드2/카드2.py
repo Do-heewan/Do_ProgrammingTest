@@ -1,18 +1,19 @@
 # 2164 카드2
 
 from collections import deque
-import sys
-
-input = sys.stdin.readline
 
 N = int(input())
 
-Q = deque() # 큐 생성
+queue = deque()
 for i in range(1, N+1):
-    Q.append(i) # 1 부터 N까지 추가
+    queue.append(i)
 
-while (len(Q) > 1): # Q에 카드 한 장 남을때 까지
-    Q.popleft() # 최상단 제거
-    Q.append(Q.popleft()) # 두번째 카드 뒤로 옮기기 (제거와 동시에 맨 뒤에 추가)
+while len(queue) > 1:
+    # 1. 제일 첫번째 카드를 버린다.
+    queue.popleft()
 
-print(*Q) # Q 내부 원소만 출력
+    # 2. 두 번째 카드를 맨 뒤로 보낸다.
+    c = queue.popleft()
+    queue.append(c)
+
+print(*queue)
