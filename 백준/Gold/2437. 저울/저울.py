@@ -1,14 +1,15 @@
 # 2437 저울
 
 N = int(input())
-weight = list(map(int, input().split()))
-weight.sort()
+choo = list(map(int, input().split()))
+
+choo.sort()
 
 target = 1
-for x in weight:
-    if target < x:
+for c in choo:
+    if target < c:
         break
 
-    target += x
+    target += c
 
 print(target)
