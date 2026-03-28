@@ -4,15 +4,16 @@ import sys
 input = sys.stdin.readline
 
 N = int(input())
-building = [int(input()) for _ in range(N)]
+nums = [int(input()) for _ in range(N)]
 
 stack = []
-total = 0
+cnt = 0
+
 for i in range(N):
-    while stack and stack[-1] <= building[i]:
+    while stack and nums[stack[-1]] <= nums[i]:
         stack.pop()
+    
+    cnt += len(stack)
+    stack.append(i)
 
-    total += len(stack)
-    stack.append(building[i])
-
-print(total)
+print(cnt)
