@@ -1,15 +1,17 @@
 # 2493 탑
 
 N = int(input())
-razer = list(map(int, input().split()))
+nums = list(map(int, input().split()))
 
 stack = []
-result = [0] * (N)
-
-for i in range(N-1, -1, -1):
-    while stack and razer[stack[-1]] < razer[i]:
-        idx = stack.pop()
-        result[idx] = i+1
+result = [0] * N
+for i in range(N):
+    while stack:
+        if nums[stack[-1]] > nums[i]:
+            result[i] = stack[-1]+1
+            break
+        else:
+            stack.pop()
 
     stack.append(i)
 
