@@ -1,12 +1,12 @@
 # 13164 행복 유치원
 
 N, K = map(int, input().split())
-cost = list(map(int, input().split()))
+group = list(map(int, input().split()))
 
 diff = []
 for i in range(N-1):
-    diff.append(cost[i+1]-cost[i])
+    diff.append(group[i+1]-group[i])
 
-diff.sort(reverse=True)
+diff.sort()
 
-print(sum(diff[K-1:]))
+print(sum(diff[:N-K]))
