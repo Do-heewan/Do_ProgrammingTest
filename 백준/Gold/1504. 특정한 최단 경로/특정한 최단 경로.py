@@ -1,30 +1,29 @@
 # 1504 특정한 최단 경로
 
+import sys
+input = sys.stdin.readline
+
 import heapq
 
-INF = 1_000_000_000
+INF = 100_000_000
 
-def dijkstra(num, end):
-    weight = [INF] * (N+1)
+def dijkstra(n):
+    weight[n] = 0
 
-    queue = []
-    heapq.heappush(queue, (0, num)) # 시작 위치의 가중치는 0
+    heap = []
+    heapq.heappush(heap, [0, n])
 
-    weight[num] = 0
+    while heap:
+        wgt, curr = heapq.heappop(heap)
 
-    while queue:
-        wgt, now = heapq.heappop(queue) # 큐에 저장된 가중치와 정점 정보 pop
-
-        if (weight[now] < wgt): # 현재 정점에 저장된 가중치가 더 작다 => 이미 작은 가중치로 현재 정점에 도착함
+        if wgt > weight[curr]:
             continue
 
-        for v, w in graph[now]:
-            cost = wgt + w # 비용 = v로 가는데 드는 가중치 + 현재의 가중치
-            if (cost < weight[v]): # 비용이 더 적게 들면
-                weight[v] = cost # 더 작은 가중치로 변경
-                heapq.heappush(queue, (cost, v)) # 힙에 푸쉬
-
-    return weight[end]
+        for next_, c in graph[curr]:
+            cost = c + wgt
+            if cost < weight[next_]:
+                weight[next_] = cost
+                heapq.heappush(heap, [cost, next_])
 
 N, E = map(int, input().split())
 
@@ -34,8 +33,24 @@ for _ in range(E):
     graph[a].append([b, cost])
     graph[b].append([a, cost])
 
-v1, v2 = map(int, input().split())
+target_a, target_b = map(int, input().split())
 
-result = min(dijkstra(1, v1) + dijkstra(v1, v2) + dijkstra(v2, N), dijkstra(1, v2) + dijkstra(v2, v1) + dijkstra(v1, N))
+weight = [INF] * (N+1)
+dijkstra(1)
+one_to_a = weight[target_a]
+one_to_b = weight[target_b]
 
-print(result if result < INF else -1)
+weight = [INF] * (N+1)
+dijkstra(target_a)
+a_to_b = weight[target_b]
+a_to_end = weight[N]
+
+weight = [INF] * (N+1)
+dijkstra(target_b)
+b_to_end = weight[N]
+b_to_a = weight[target_a]
+
+if one_to_a == INF or a_to_b == INF or b_to_end == INF:
+    print(-1)
+else:
+    print(min(one_to_a+a_to_b+b_to_end, one_to_b+b_to_a+a_to_end))
