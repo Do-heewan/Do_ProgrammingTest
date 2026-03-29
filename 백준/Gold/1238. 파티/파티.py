@@ -2,43 +2,45 @@
 
 import heapq
 
-INF = 1_000_000_000
+INF = 100_000_000
 
 def dijkstra(n):
-    queue = []
-    heapq.heappush(queue, (0, n)) # 시작점에서의 가중치는 0
     weight[n] = 0
 
-    while queue:
-        wgt, now = heapq.heappop(queue) # 가중치와 현재 정점 정보 pop
+    heap = []
+    heapq.heappush(heap, [0, n])
 
-        if weight[now] < wgt: # 현재 정점까지의 가중치와 지금까지의 가중치를 비교
-            continue # 이미 작은 가중치(최단 거리)로 정점에 도착했을 경우 생략
+    while heap:
+        wgt, curr = heapq.heappop(heap)
 
-        for v, w in graph[now]:
-            cost = wgt + w
+        if wgt > weight[curr]:
+            continue
 
-            if cost < weight[v]: 
-                weight[v] = cost
-                heapq.heappush(queue, (cost, v))
+        for next_, c in graph[curr]:
+            cost = c + wgt
+            if weight[next_] > cost:
+                weight[next_] = cost
+                heapq.heappush(heap, [cost, next_])
 
 N, M, X = map(int, input().split())
+
 graph = [[] for _ in range(N+1)]
 for _ in range(M):
-    a, b, t = map(int, input().split())
-    graph[a].append([b, t])
+    a, b, c = map(int, input().split())
+    graph[a].append([b, c])
 
-res = [0] * (N+1)
+result = [0] * (N+1)
 for i in range(1, N+1):
-    weight = [INF] * (N+1) # 해당 정점까지의 가중치(최단 거리) 저장
+    weight = [INF] * (N+1)
     dijkstra(i)
-    res[i] += weight[X]
+    
+    if i == X:
+        for k in range(1, N+1):
+            if k == X:
+                continue
+            result[k] += weight[k]
+            continue
 
-weight = [INF] * (N+1) # 해당 정점까지의 가중치(최단 거리) 저장
-dijkstra(X)
-
-result = []
-for i in range(1, N+1):
-    result.append(res[i] + weight[i])
+    result[i] += weight[X]
 
 print(max(result))
