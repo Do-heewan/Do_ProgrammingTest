@@ -1,34 +1,42 @@
+# 18352 특정 거리의 도시 찾기
+
 import sys
 input = sys.stdin.readline
 
-n , m , k , x = map(int, input().split())
-g = [[] for _ in range(n+1)]
-for i in range(m):
-    a , b = map(int, input().split())
-    g[a].append(b)
-visited = [-1] * (n+1)
-visited[x] = 0
-now = [x]
-next = list()
+from collections import deque
 
-for i in range(k):
-    for j in now:
-        for p in g[j]:
-            if visited[p] == -1:
-                visited[p] = i + 1
-                next.append(p)
-    # print(next)
-    now = list(next)
-    next = list()
+def bfs(n):
+    Q = deque()
+    Q.append(n)
+    visited[n] = 0
+
+    while Q:
+        c = Q.popleft()
+
+        for ix in graph[c]:
+            if visited[ix] == -1:
+                visited[ix] = visited[c]+1
+                Q.append(ix)
+
+
+N, M, K, X = map(int, input().split())
+
+graph = [[] for _ in range(N+1)]
+for _ in range(M):
+    a, b = map(int, input().split())
+    graph[a].append(b)
+
+visited = [-1] * (N+1)
+
+bfs(X)
 
 result = []
-for i in now:
-    if visited[i] == k:
+for i in range(1, N+1):
+    if visited[i] == K:
         result.append(i)
 
 if result:
-    result.sort()  # 오름차순 정렬
-    for city in result:
-        print(city)
+    for r in result:
+        print(r)
 else:
     print(-1)
