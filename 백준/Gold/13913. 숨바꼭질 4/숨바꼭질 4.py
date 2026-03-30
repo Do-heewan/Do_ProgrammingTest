@@ -2,35 +2,36 @@
 
 from collections import deque
 
-def bfs(n, k):
+def bfs(n):
     Q = deque()
     Q.append(n)
     visited[n] = 0
 
     while Q:
-        curr = Q.popleft()
+        c = Q.popleft()
 
-        if curr == k:
-            return
+        if c == K: break
 
-        for next in [curr-1, curr+1, 2*curr]:
-            if 0 <= next <= 100000 and visited[next] == -1:
-                Q.append(next)
-                visited[next] = visited[curr] + 1
-                route[next] = curr
+        for next_ in [c-1, c+1, 2*c]:
+            if 0 <= next_ <= 100_000 and visited[next_] == -1:
+                visited[next_] = visited[c]+1
+                route[next_] = c
+                Q.append(next_)
 
 N, K = map(int, input().split())
-visited = [-1] * (100_001)
-route = [0 for _ in range(100001)]
 
-bfs(N, K)
+visited = [-1] * 100001
+route = [-1] * 100001
 
-result = []
-node = K
-while node != N:
-    result.append(node)
-    node = route[node]
-result.append(N)
+bfs(N)
 
 print(visited[K])
-print(*result[::-1])
+
+result = []
+curr = K
+while curr != -1:
+    result.append(curr)
+    curr = route[curr]
+
+result.reverse()
+print(*result)
