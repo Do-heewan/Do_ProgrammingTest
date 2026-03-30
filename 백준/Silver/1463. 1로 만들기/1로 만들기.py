@@ -1,13 +1,15 @@
-import sys
+# 1463 1로 만들기
 
-n = int(sys.stdin.readline())
+N = int(input())
 
-d = [0] * (n + 1)
-for i in range(2, n + 1):
-    d[i] = d[i - 1] + 1
+dp = [10 ** 6] * (N+1)
+dp[N] = 0
+
+for i in range(N, 0, -1):
     if i % 3 == 0:
-        d[i] = min(d[i], d[i // 3] + 1)
+        dp[i // 3] = min(dp[i // 3], dp[i] + 1)
     if i % 2 == 0:
-        d[i] = min(d[i], d[i // 2] + 1)
+        dp[i // 2] = min(dp[i // 2], dp[i] + 1)
+    dp[i-1] = min(dp[i-1], dp[i]+1)
 
-print(d[n])
+print(dp[1])
