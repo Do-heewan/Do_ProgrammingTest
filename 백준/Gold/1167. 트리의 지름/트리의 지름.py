@@ -1,38 +1,58 @@
 # 1167 트리의 지름
 
 import sys
-sys.setrecursionlimit(10**6)
+input = sys.stdin.readline
 
-def dfs(node, dist):
-    global max_distance, far_node
-    visited[node] = True
+import heapq
 
-    if max_distance < dist:
-        max_distance = dist
-        far_node = node
+INF = 10 ** 15
 
-    for ix, c in graph[node]:
-        if not visited[ix]:
-            visited[ix] = True
-            dfs(ix, dist+c)
-            visited[ix] = False
+def dijkstra(n):
+    weight[n] = 0
 
-V = int(input())
+    heap = []
+    heapq.heappush(heap, [0, n])
 
-graph = [[] for _ in range(V+1)]
-for i in range(1, V+1):
+    while heap:
+        wgt, curr = heapq.heappop(heap)
+
+        if wgt > weight[curr]:
+            continue
+
+        for next_, c in graph[curr]:
+            cost = wgt + c
+            if cost < weight[next_]:
+                weight[next_] = cost
+                heapq.heappush(heap, [cost, next_])
+
+N = int(input())
+
+graph = [[] for _ in range(N+1)]
+for _ in range(N):
     ipt = list(map(int, input().split()))
-    start = ipt[0]
-    for i in range(1, len(ipt[:-1]), 2):
-        graph[start].append((ipt[i], ipt[i+1]))
+    
+    node = ipt[0]
+    for i in range(1, len(ipt), 2):
+        if ipt[i] == -1:
+            continue
+        
+        graph[node].append([ipt[i], ipt[i+1]])
 
-visited = [False] * (V+1)
+weight = [INF] * (N+1)
+dijkstra(1)
+
+far_node = -1
 max_distance = 0
-far_node = 0
 
-dfs(1, 0)
+for i, d in enumerate(weight[1:]):
+    if d > max_distance:
+        max_distance = d
+        far_node = i+1
 
-visited = [False] * (V+1)
-dfs(far_node, 0)
+weight = [INF] * (N+1)
+dijkstra(far_node)
+
+for d in weight[1:]:
+    max_distance = max(max_distance, d)
 
 print(max_distance)
