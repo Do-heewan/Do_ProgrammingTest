@@ -1,27 +1,21 @@
-# # 12015 가장 긴 증가하는 부분 수열 2
+# 12015 가장 긴 증가하는 부분 수열 3
 
 import sys
 input = sys.stdin.readline
 
-A = int(input())
-seq = list(map(int, input().split()))
+import bisect
 
-dp = [seq[0]]
+N = int(input())
+lst = list(map(int, input().split()))
 
-for ix in seq:
-    if (dp[-1] < ix):
-        dp.append(ix)
+dp = []
 
+for x in lst:
+    idx = bisect.bisect_left(dp, x)
+
+    if idx == len(dp):
+        dp.append(x)
     else:
-        start, end = 0, len(dp)-1
-        while (start < end):
-            mid = (start + end) // 2
-
-            if (ix > dp[mid]):
-                start = mid + 1
-
-            else:
-                end = mid
-        dp[end] = ix
+        dp[idx] = x
 
 print(len(dp))
