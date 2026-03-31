@@ -1,47 +1,38 @@
-# 1197 최소 스패닝 트리
+# 1647 도시 분할 계획
 
 import sys
 input = sys.stdin.readline
-sys.setrecursionlimit(10 ** 9)
 
-V, E = map(int, input().split())
-
-tree = []
-for _ in range(E):
-    a, b, c = map(int, input().split())
-    tree.append((a, b, c))
-tree.sort(key = lambda x : x[2]) # c(cost)에 대해서 오름차순 정렬
-
-parent = [i for i in range(V+1)]
-
-def get_parent(x):
-    if (parent[x] == x):
-        return x
-
-    parent[x] = get_parent(parent[x])
-
+def find_root(x):
+    if x == parent[x]: return x
+    parent[x] = find_root(parent[x])
     return parent[x]
 
-def union_parent(a, b):
-    a = get_parent(a)
-    b = get_parent(b)
+def union(a, b):
+    x = find_root(a)
+    y = find_root(b)
 
-    if (a < b):
-        parent[b] = a
-
+    if x > y:
+        parent[x] = y
     else:
-        parent[a] = b
+        parent[y] = x
 
-def same_parent(a, b):
-    return get_parent(a) == get_parent(b)
+def same_root(x, y):
+    return  find_root(x) == find_root(y)
 
-answer = 0
-cost_target = 0
-for a, b, cost in tree:
-    if not (same_parent(a, b)):
-        union_parent(a, b)
-        answer += cost
-        if (cost > cost_target):
-            cost_target = cost
+N, M = map(int, input().split())
+edges = [list(map(int, input().split())) for _ in range(M)]
 
-print(answer - cost_target)
+edges.sort(key=lambda x : x[2])
+
+parent = [i for i in range(N+1)]
+
+costs = 0
+max_cost = 0
+for a, b, cost in edges:
+    if not same_root(a, b):
+        union(a, b)
+        costs += cost
+        max_cost = max(max_cost, cost)
+
+print(costs - max_cost)
