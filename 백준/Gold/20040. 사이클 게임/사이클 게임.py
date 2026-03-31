@@ -3,33 +3,36 @@
 import sys
 input = sys.stdin.readline
 
+answer = 100_000_000
+
 def find_root(x):
-    if (parent[x] == x): return x
+    if x == parent[x]: return x
     parent[x] = find_root(parent[x])
     return parent[x]
 
-def union_set(a, b):
+def union(a, b):
     x = find_root(a)
     y = find_root(b)
-    if (x > y):
-        parent[x] = y 
-    else: 
+
+    if x > y:
+        parent[x] = y
+    else:
         parent[y] = x
 
-def same_root(a, b):
-    return find_root(a) == find_root(b)
+def same_root(x, y):
+    return find_root(x) == find_root(y)
 
 N, M = map(int, input().split())
 
-parent = [i for i in range(N)]
-res = 0
-for i in range(1, M+1):
+parent = [i for i in range(N+1)]
+
+for cnt in range(1, M+1):
     a, b = map(int, input().split())
 
-    if same_root(a, b):
-        print(i)
-        exit()
-    union_set(a, b)
+    if not same_root(a, b):
+        union(a, b)
 
-else:
-    print(0)
+    else:
+        answer = min(answer, cnt)
+
+print(answer if answer != 100_000_000 else 0)
