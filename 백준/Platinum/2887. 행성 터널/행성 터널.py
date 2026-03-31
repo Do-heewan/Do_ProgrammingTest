@@ -1,51 +1,51 @@
 # 2887 행성 터널
 
+def find_root(x):
+    if x == parent[x]: return x
+    parent[x] = find_root(parent[x])
+    return parent[x]
+
+def union(a, b):
+    x = find_root(a)
+    y = find_root(b)
+
+    if x > y:
+        parent[x] = y
+    else:
+        parent[y] = x
+
+def same_root(x, y):
+    return  find_root(x) == find_root(y)
+
 N = int(input())
-
-position = [[]]
-for _ in range(N):
-    x, y, z = map(int, input().split())
-    position.append([x, y, z])
-
-tree = []
-# 각 축(x, y, z)에 대해 정렬한 후 인접 노드 간선만 추가
-for dim in range(3):
-    sorted_pos = sorted([(position[i][dim], i) for i in range(1, N+1)])
-    for i in range(N - 1):
-        a_idx = sorted_pos[i][1]
-        b_idx = sorted_pos[i + 1][1]
-        weight = abs(sorted_pos[i][0] - sorted_pos[i + 1][0])
-        tree.append([a_idx, b_idx, weight])
-
-tree.sort(key = lambda x : x[2])
+pos = [list(map(int, input().split())) for _ in range(N)]
 
 parent = [i for i in range(N+1)]
 
-def get_parent(x):
-    if (parent[x] == x):
-        return x
+edges = []
+for dim in range(3):
+    rank = []
+    for i in range(1, N+1):
+        rank.append([pos[i-1][dim], i])
+    sorted_pos = sorted(rank)
+    for i in range(N-1):
+        a_idx = sorted_pos[i][1]
+        b_idx = sorted_pos[i+1][1]
+        weight = abs(sorted_pos[i+1][0] - sorted_pos[i][0])
 
-    parent[x] = get_parent(parent[x])
+        edges.append([a_idx, b_idx, weight])
 
-    return parent[x]
+edges.sort(key=lambda x : x[2])
 
-def union_parent(a, b):
-    a = get_parent(a)
-    b = get_parent(b)
+costs = 0
+cnt = 0
+for a, b, cost in edges:
+    if cnt == N-1:
+        break
 
-    if (a < b):
-        parent[b] = a
+    if not same_root(a, b):
+        union(a, b)
+        cnt += 1
+        costs += cost
 
-    else:
-        parent[a] = b
-
-def same_parent(a, b):
-    return get_parent(a) == get_parent(b)
-
-answer = 0
-for a, b, cost in tree:
-    if not (same_parent(a, b)):
-        union_parent(a, b)
-        answer += cost
-
-print(answer)
+print(costs)
