@@ -1,19 +1,29 @@
 # 12015 가장 긴 증가하는 부분 수열 2
 
-import sys
-from bisect import bisect_left
-input = sys.stdin.readline
+def binary_search(dp, target):
+    start, end = 0, len(dp)
 
-A = int(input())
-seq = list(map(int, input().split()))
+    while start < end:
+        mid = (start+end) // 2
+        
+        if dp[mid] < target:
+            start = mid+1
+        else:
+            end = mid
 
-dp = [seq[0]]
+    return start
 
-for ix in seq:
-    if (dp[-1] < ix):
-        dp.append(ix)
+N = int(input())
+lst = list(map(int, input().split()))
+
+dp = []
+
+for x in lst:
+    idx = binary_search(dp, x)
+
+    if idx == len(dp):
+        dp.append(x)
     else:
-        idx = bisect_left(dp, ix)
-        dp[idx] = ix
+        dp[idx] = x
 
 print(len(dp))
