@@ -1,24 +1,24 @@
-# 2905 나무 자르기
-
-import sys
-
-input = sys.stdin.readline
+# 2805 나무 자르기
 
 N, M = map(int, input().split())
 tree = list(map(int, input().split()))
-start, end = 1, max(tree)
+tree.sort()
 
-while (start <= end):
-    mid = (start + end) // 2
+left, right = 1, max(tree)
 
-    wood = 0
-    for i in tree:
-        if (i > mid):
-            wood += (i - mid)
+answer = 0
+while left <= right:
+    mid = (left+right) // 2
 
-    if (wood >= M):
-        start = mid + 1
+    cut = 0
+    for t in tree:
+        if t < mid: continue
+        cut += t - mid
+
+    if cut >= M:
+        answer = mid
+        left = mid+1
     else:
-        end = mid - 1
+        right = mid-1
 
-print(end)
+print(answer)
