@@ -1,7 +1,7 @@
 # 2467 용액
 
 def binary_search(arr, start, end):
-    min_value = float('inf')
+    min_value = 10_000_000_000
     result = []
 
     while start < end:
