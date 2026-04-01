@@ -1,19 +1,22 @@
 # 1920 수 찾기
 
-import sys
+def binary_search(start, end, target):
+    while start < end:
+        mid = (start+end) // 2
 
-input = sys.stdin.readline
+        if lst[mid] < target:
+            start = mid+1
+        else:
+            end = mid
+
+    return lst[start] == target
 
 N = int(input())
-N_list = list(map(int ,input().split())) # 정답지
+lst = list(map(int, input().split()))
+lst.sort()
 
 M = int(input())
-M_list = list(map(int ,input().split())) # 답안지
+target = list(map(int, input().split()))
 
-N_set = set(N_list) # 집합 변환(중복 제거)
-
-for ix in M_list:
-    if (ix in N_set):
-        print(1)
-    else:
-        print(0)
+for t in target:
+    print(1 if binary_search(0, N-1, t) else 0)
