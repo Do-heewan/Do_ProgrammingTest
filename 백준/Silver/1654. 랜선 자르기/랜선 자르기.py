@@ -1,27 +1,36 @@
 # 1654 랜선 자르기
 
-import sys
+def check(arr, mid):
+    cnt = 0
+    for a in arr:
+        cnt += a // mid
 
-input = sys.stdin.readline
-K, N = map(int, input().split())
+    if cnt >= K:
+        return True
+    else:
+        return False
 
-rope = [] # 랜선의 길이 저장
-for _ in range(K):
-    length = int(input())
-    rope.append(length)
+def binary_search(arr, start, end):
+    result = 0
 
-start, end = 1, max(rope)
+    while start <= end:
+        mid = (start+end) // 2
 
-while (start <= end):
-    mid = (start + end) // 2
+        if mid == 0:
+            return 0
 
-    num_rope = [] # 자른 후의 랜선의 개수 저장
-    for i in rope:
-        num_rope.append(i // mid)
+        if check(arr, mid):
+            result = mid
+            start = mid+1
+        else:
+            end = mid-1
+
+    return result
         
-    if (sum(num_rope) < N): # 랜선의 개수가 필요 랜선의 개수보다 작을 경우
-        end = mid - 1 # mid값을 조정하여 더 잘개 자르도록 조정
-    elif (sum(num_rope) >= N): # 랜선의 개수가 필요 랜선의 개수보다 클 경우
-        start = mid + 1 # mid값을 조정하여 덜 잘개 자르도록 조정
 
-print(end) # start값이 end값보다 커질 때, while문이 종료되고 이때의 end값이 최대 길이가 된다.
+N, K = map(int, input().split())
+lan = [int(input()) for _ in range(N)]
+
+start, end = 1, max(lan)
+
+print(binary_search(lan, start, end))
