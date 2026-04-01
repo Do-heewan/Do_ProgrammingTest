@@ -1,14 +1,16 @@
 # 2225 합분해
 
-import sys
-input = sys.stdin.readline
+MOD = 1_000_000_000
 
 N, K = map(int, input().split())
-dp = [[0] * (K+1) for _ in range(N+1)]
 
-dp[0][0] = 1
-for i in range(0, N+1):
-    for j in range(1, K+1):
-        dp[i][j] = dp[i-1][j] + dp[i][j-1]
+nums = [i for i in range(1, N+1)]
 
-print(dp[N][K] % 10**9)
+dp = [[0] * (K+1) for _ in range(N+1)] # dp[n][k] k개의 수로 n을 만드는 경우의 수
+dp[0][0] = 1 # 0을 0개로 만드는 경우의 수는 1
+
+for n in range(N+1):
+    for k in range(1, K+1):
+        dp[n][k] = dp[n-1][k] + dp[n][k-1]
+
+print(dp[N][K] % MOD)
