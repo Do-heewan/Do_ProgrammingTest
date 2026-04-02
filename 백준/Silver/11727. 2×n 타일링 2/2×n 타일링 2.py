@@ -1,15 +1,12 @@
-import sys
-input = sys.stdin.readline
+# 11727 2xn 타일링 2
 
-n = int(input())
-dp = [0] * 1001
+N = int(input())
 
-# 초기값 지정
-dp[0] = 1
+dp = [0] * (1000+1)
 dp[1] = 1
+dp[2] = 3
 
-# 점화식에 따른 경우의 수 계산
-for i in range(2, n+1):
-    dp[i] = dp[i-1] + 2 * dp[i-2]
+for i in range(3, N+1):
+    dp[i] = (dp[i-1] + dp[i-2]*2) % 10007
 
-print(dp[n] % 10007)
+print(dp[N] % 10007)
