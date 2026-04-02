@@ -1,23 +1,18 @@
-# 1806 부분 합
+# 1806 부분합
 
 N, S = map(int, input().split())
-sequence = list(map(int, input().split()))
+lst = list(map(int, input().split()))
 
-start, end = 0, 0
-min_length = 100_000
-sum = 0
+start = 0
+answer = 100_000
 
-while (True):
-    if (sum >= S):
-        min_length = min(min_length, end - start)
-        sum -= sequence[start]
+temp = 0
+for end in range(N):
+    temp += lst[end]
+
+    while temp >= S:
+        answer = min(answer, (end-start+1))
+        temp -= lst[start]
         start += 1
-        
-    elif (end == N):
-        break
-    
-    else:
-        sum += sequence[end]
-        end += 1
 
-print(min_length if min_length != 100_000 else 0)
+print(answer if answer != 100_000 else 0)
