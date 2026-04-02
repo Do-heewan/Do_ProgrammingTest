@@ -1,22 +1,13 @@
 # 1149 RGB 거리
 
-import sys
-input = sys.stdin.readline
-
 N = int(input())
+house = [list(map(int, input().split())) for _ in range(N)]
 
-# 첫 번째 RGB
-li = list(map(int, input().split()))
+dp = [[0] * 3 for _ in range(N+1)]
 
-# 두 번째 RGB부터 더해가며 값을 비교
-for _ in range(N-1):
-    r, g, b = map(int, input().split())
+for i in range(1, N+1):
+    dp[i][0] = min(dp[i-1][1], dp[i-1][2]) + house[i-1][0]
+    dp[i][1] = min(dp[i-1][0], dp[i-1][2]) + house[i-1][1]
+    dp[i][2] = min(dp[i-1][0], dp[i-1][1]) + house[i-1][2]
 
-    new_r = min(r + li[1], r + li[2])
-    new_g = min(g + li[0], g + li[2])
-    new_b = min(b + li[0], b + li[1])
-
-    # 새로운 리스트로 저장
-    li = [new_r, new_g, new_b]
-
-print(min(li))
+print(min(dp[N]))
