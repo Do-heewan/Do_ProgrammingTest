@@ -1,13 +1,16 @@
 # 9095 1, 2, 3 더하기
 
-n = int(input())
+T = int(input())
 
-for T in range(n):
-    n, i = int(input()), 4
-    plus = [None, 1, 2, 4]
+for _ in range(T):
+    num = int(input())
 
-    while i <= n:
-        plus.append(plus[i - 1] + plus[i - 2] + plus[i - 3])
-        i += 1
+    dp = [0] * 12
+    dp[1] = 1
+    dp[2] = 2
+    dp[3] = 4
 
-    print(plus[n])
+    for i in range(4, num+1):
+        dp[i] = dp[i-1] + dp[i-2] + dp[i-3]
+
+    print(dp[num])
