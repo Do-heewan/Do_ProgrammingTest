@@ -1,18 +1,18 @@
 # 9251 LCS
 
-import sys
-input = sys.stdin.readline
+word = input()
+target = input()
 
-s1 = list(input().rstrip())
-s2 = list(input().rstrip())
+W = len(word)
+T = len(target)
 
-lcs = [[0] * (len(s2) + 1) for _ in range(len(s1) + 1)]
+dp = [[0] * (T+1) for _ in range(W+1)] # dp[i][j] w단어의 i까지 단어와 t단어의 j까지의 단어에서 최장공통부분
 
-for i in range(1, len(s1)+1):
-    for j in range(1, len(s2)+1):
-        if (s1[i-1] == s2[j-1]):
-            lcs[i][j] = lcs[i-1][j-1] + 1
+for i in range(1, W+1):
+    for j in range(1, T+1):
+        if word[i-1] == target[j-1]:
+            dp[i][j] = dp[i-1][j-1]+1
         else:
-            lcs[i][j] = max(lcs[i-1][j], lcs[i][j-1])
+            dp[i][j] = max(dp[i-1][j], dp[i][j-1])
 
-print(lcs[-1][-1])
+print(dp[W][T])
