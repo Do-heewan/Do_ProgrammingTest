@@ -1,24 +1,18 @@
 # 1932 정수 삼각형
 
-import sys
-input = sys.stdin.readline
-
 N = int(input())
+lst = [0] + [list(map(int, input().split())) for _ in range(N)]
 
-tri = []
-for _ in range(N):
-    num_list = list(map(int, input().split()))
-    tri.append(num_list)
+dp = [[0] * (N+1) for _ in range(N+1)]
+dp[1][0] = lst[1][0]
 
-for i in range(1, N):
-    for j in range(len(tri[i])):
-        if (j == 0):
-            tri[i][j] += tri[i-1][j]
-
-        elif (j == len(tri[i])-1):
-            tri[i][j] += tri[i-1][j-1]
-
+for i in range(2, N+1):
+    for j in range(i):
+        if j == 0:
+            dp[i][j] = dp[i-1][j] + lst[i][j]
+        elif j == i-1:
+            dp[i][j] = dp[i-1][j-1] + lst[i][j]
         else:
-            tri[i][j] = max(tri[i][j] + tri[i-1][j-1], tri[i][j] + tri[i-1][j])
+            dp[i][j] = max(dp[i-1][j-1], dp[i-1][j]) + lst[i][j]
 
-print(max(tri[N-1]))
+print(max(dp[N]))
