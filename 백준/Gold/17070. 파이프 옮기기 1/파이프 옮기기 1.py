@@ -1,30 +1,23 @@
-# 17070 파이프 옮기기
+# 17070 파이프 옮기기 1
 
 N = int(input())
+board = [list(map(int, input().split())) for _ in range(N)]
 
-graph = []
-for _ in range(N):
-    graph.append(list(map(int, input().split())))
+# 0:가로, 1:대각 2:세로
+dp = [[[0 for _ in range(N)] for _ in range(N)] for _ in range(3)]
+dp[0][0][1] = 1
 
-# 0 : 가로, 1 : 세로, 2 : 대각
-dp = [[[0] * 3 for _ in range(N)] for _ in range(N)]
-dp[0][1][0] = 1
+for i in range(2, N):
+    if board[0][i] == 0:
+        dp[0][0][i] = dp[0][0][i-1]
 
-for i in range(N):
-    for j in range(2, N):
-        if graph[i][j] == 1:
-            continue
+for r in range(1, N):
+    for c in range(1, N):
+        if board[r-1][c] == 0 and board[r][c-1] == 0 and board[r][c] == 0:
+            dp[1][r][c] = dp[0][r-1][c-1] + dp[1][r-1][c-1] + dp[2][r-1][c-1]
         
-        # 가로
-        if (graph[i][j] == 0):
-            dp[i][j][0] = dp[i][j-1][0] + dp[i][j-1][2]
+        if board[r][c] == 0:
+            dp[0][r][c] = dp[0][r][c-1] + dp[1][r][c-1]
+            dp[2][r][c] = dp[2][r-1][c] + dp[1][r-1][c]
 
-        # 세로
-        if (i > 0) and (graph[i-1][j] == 0):
-            dp[i][j][1] = dp[i-1][j][1] + dp[i-1][j][2]
-
-        # 대각선
-        if (i > 0) and (graph[i][j-1] == 0) and (graph[i-1][j] == 0):
-            dp[i][j][2] = dp[i-1][j-1][0] + dp[i-1][j-1][1] + dp[i-1][j-1][2]
-
-print(sum(dp[N-1][N-1]))
+print(sum(dp[i][N-1][N-1] for i in range(3)))
