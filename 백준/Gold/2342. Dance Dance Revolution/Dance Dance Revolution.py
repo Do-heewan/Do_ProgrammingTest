@@ -1,52 +1,39 @@
 # 2342 Dance Dance Revolution
 
-import sys
-input = sys.stdin.readline
+INF = 100_000_000
 
-def cost(a, b):
-    if a == 0:
+def move(curr, next):
+    if curr == 0:
         return 2
-    if a == b:
+    elif curr == next:
         return 1
-    if abs(a-b) == 2:
+    elif abs(curr - next) == 2:
         return 4
-    return 3
+    else:
+        return 3
 
-arr = list(map(int, input().split()))
-arr.pop()
+lst = list(map(int, input().split()))
+lst.pop()
+N = len(lst)
 
-INF = 10**9
-n = len(arr)
-
-dp = [[[INF]*5 for _ in range(5)] for _ in range(n+1)]
+# dp[i][l][r] : i번째 밟을 차례에서, 왼발로 l을 밟고있고, 오른발로 r을 밟고 있을 때 까지의 최소 힘
+dp = [[[INF for _ in range(5)] for _ in range(5)] for _ in range(N+1)]
 dp[0][0][0] = 0
 
-for i in range(n):
-    next = arr[i]
+for k in range(N):
+    next_ = lst[k]
+    for i in range(5):
+        for j in range(5):
+            curr = dp[k][i][j]
 
-    for l in range(5):
-        for r in range(5):
+            if curr == INF: continue
 
-            cur = dp[i][l][r]
-            if cur == INF:
-                continue
-
-            # 왼발 이동
-            dp[i+1][next][r] = min(
-                dp[i+1][next][r],
-                cur + cost(l, next)
-            )
-
-            # 오른발 이동
-            dp[i+1][l][next] = min(
-                dp[i+1][l][next],
-                cur + cost(r, next)
-            )
-
+            dp[k+1][next_][j] = min(dp[k+1][next_][j], curr + move(i, next_))
+            dp[k+1][i][next_] = min(dp[k+1][i][next_], curr + move(j, next_))
 
 ans = INF
 for l in range(5):
     for r in range(5):
-        ans = min(ans, dp[n][l][r])
+        ans = min(ans, dp[N][l][r])
 
 print(ans)
