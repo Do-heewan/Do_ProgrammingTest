@@ -2,12 +2,23 @@
 
 N = int(input())
 
-dp_min = [0, 0, 0]
-dp_max = [0, 0, 0]
+prev_max = [0, 0, 0]
+prev_min = [0, 0, 0]
 
 for i in range(N):
-    lst = list(map(int, input().split()))
-    dp_max = [lst[0] + max(dp_max[:2]), lst[1] + max(dp_max), lst[2] + max(dp_max[1:])]
-    dp_min = [lst[0] + min(dp_min[:2]), lst[1] + min(dp_min), lst[2] + min(dp_min[1:])]
+    a, b, c = map(int, input().split())
+    curr_max = [0, 0, 0]
+    curr_min = [0, 0, 0]
 
-print(max(dp_max), min(dp_min))
+    curr_max[0] = max(prev_max[0], prev_max[1]) + a
+    curr_max[1] = max(prev_max[0], prev_max[1], prev_max[2]) + b
+    curr_max[2] = max(prev_max[1], prev_max[2]) + c
+
+    curr_min[0] = min(prev_min[0], prev_min[1]) + a
+    curr_min[1] = min(prev_min[0], prev_min[1], prev_min[2]) + b
+    curr_min[2] = min(prev_min[1], prev_min[2]) + c
+
+    prev_max = curr_max
+    prev_min = curr_min
+
+print(max(prev_max), min(prev_min))
