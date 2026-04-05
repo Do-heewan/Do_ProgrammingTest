@@ -13,8 +13,6 @@ def check(mid):
     else:
         return False
 
-        
-
 def binary_search(start, end):
     answer = 0
 
