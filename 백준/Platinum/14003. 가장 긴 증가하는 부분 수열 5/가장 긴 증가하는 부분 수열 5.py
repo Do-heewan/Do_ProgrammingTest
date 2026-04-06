@@ -1,32 +1,44 @@
 # 14003 가장 긴 증가하는 부분 수열 5
 
-import bisect
+import sys
+input = sys.stdin.readline
+
+def binary_search(left, right, target, arr):
+    while left < right:
+        mid = (left+right) // 2
+
+        if arr[mid] < target:
+            left = mid+1
+        else:
+            right = mid
+    
+    return left
 
 N = int(input())
 lst = list(map(int, input().split()))
 
-seq = []
+dp = []
 route = [0] * N
-
 for i in range(N):
-    x = lst[i]
-    idx = bisect.bisect_left(seq, x)
+    curr = lst[i]
+    idx = binary_search(0, len(dp), curr, dp)
 
-    if idx == len(seq):
-        seq.append(x)
+    if len(dp) == idx:
+        dp.append(curr)
+        
     else:
-        seq[idx] = x
+        dp[idx] = curr
 
     route[i] = idx
 
-print(len(seq))
+print(len(dp))
 
+start = len(dp)-1
 result = []
-curr = len(seq)-1
-
 for i in range(N-1, -1, -1):
-    if route[i] == curr:
+    if route[i] == start:
         result.append(lst[i])
-        curr -= 1
+        start -= 1
 
-print(*result[::-1])
+result.reverse()
+print(*result)
