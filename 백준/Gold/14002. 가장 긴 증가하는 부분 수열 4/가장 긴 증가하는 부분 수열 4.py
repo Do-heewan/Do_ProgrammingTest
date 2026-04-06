@@ -1,25 +1,41 @@
 # 14002 가장 긴 증가하는 부분 수열 4
 
+def binary_search(left, right, target, arr):
+    while left < right:
+        mid = (left+right) // 2
+
+        if arr[mid] < target:
+            left = mid+1
+        else:
+            right = mid
+    
+    return left
+
 N = int(input())
 lst = list(map(int, input().split()))
 
-dp = [1] * N
-route = [-1] * N
+dp = []
+route = [0] * N
+for i in range(N):
+    curr = lst[i]
+    idx = binary_search(0, len(dp), curr, dp)
 
-for i in range(1, N):
-    for j in range(i):
-        if lst[i] > lst[j]:
-            if dp[i] < dp[j]+1:
-                dp[i] = dp[j]+1
-                route[i] = j
-            # dp[i] = max(dp[i], dp[j]+1)
+    if len(dp) == idx:
+        dp.append(curr)
+        
+    else:
+        dp[idx] = curr
 
-max_len = max(dp)
+    route[i] = idx
+
+print(len(dp))
+
+start = len(dp)-1
 result = []
-curr = dp.index(max_len)
-while curr != -1:
-    result.append(lst[curr])
-    curr = route[curr]
+for i in range(N-1, -1, -1):
+    if route[i] == start:
+        result.append(lst[i])
+        start -= 1
 
-print(len(result))
-print(*result[::-1])
+result.reverse()
+print(*result)
